@@ -1,0 +1,24 @@
+queue:
+    host: 127.0.0.1 # Your Redis instance
+    port: 6379
+
+mailboxes:
+    - name: name_of_your_mailbox
+      connection:
+          driver: imap # <-- Only Imap is supported, OAuth and other methods will be supported in later verions.
+          host: imap.example.com
+          port: 993
+          username: username
+          password: password
+          tls: true
+      work_folder: AI_processing # The folder MailBurner will scan.
+
+      # List of folders MailBurner should move messages to.
+      # WARNING: every mail server handels folders like inbox, trash, etc differently. please look up the relevant documentation.
+      folders:
+          - name: Invoices # Just a generic name for MailBurner to use.
+            folder_path: invoices # The actual name of the folder,
+            description: "All invoices should be inside this folder." # Describe the function of this folder, MailBurner will automatically make sense which messages need to go where
+          - name: Trash
+            folder_path: '[Gmail]/Spam' # Example: All standard folder in Gmail are labeled with [Gmail]
+            description: "All spam and phising emails should be moved be here."
