@@ -13,11 +13,16 @@
   "dependencies": {
     "@langchain/core": "^0.3.42",
     "@langchain/ollama": "^0.2.0",
-    "bullmq": "^5.43.0"
+    "@types/imap": "^0.8.42",
+    "@types/mailparser": "^3.4.5",
+    "bullmq": "^5.43.0",
+    "mailparser": "^3.7.2",
+    "node-imap": "^0.9.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "@types/node": "^22.13.10",
+    "@types/node-imap": "^0.9.3",
     "eslint": "^9.22.0",
     "globals": "^16.0.0",
     "typescript": "^5.8.2",

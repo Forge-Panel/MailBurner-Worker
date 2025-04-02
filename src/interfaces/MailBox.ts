@@ -1,4 +1,0 @@
-
-interface IMailBox {
-  readMessages(): object[];
-}
