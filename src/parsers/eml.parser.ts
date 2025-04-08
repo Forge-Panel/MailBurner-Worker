@@ -1,9 +1,9 @@
 import {AddressObject, simpleParser} from "mailparser";
-import Message from "../types/Message.js";
-import type EmailAddress from "../types/EmailAddress.js";
-import IMessageParser from "../interfaces/MessageParser.js";
+import Message from "../types/message.type.js";
+import type EmailAddressType from "../types/emailAddress.type.js";
+import MessageParser from "../interfaces/message-parser.interface.js";
 
-export default class EmlParser implements IMessageParser {
+export default class EmlMessageParser implements MessageParser {
   async parseMessage(rawMessage: string) {
     const parsedEmail = await simpleParser(rawMessage);
 
@@ -13,8 +13,8 @@ export default class EmlParser implements IMessageParser {
       from: this.getFrom(parsedEmail.from),
       receivedOn: parsedEmail.date,
       to: this.getTo(parsedEmail.to),
-      cc: this.getTo(parsedEmail.cc),
-      bcc: this.getTo(parsedEmail.bcc),
+      cc: this.getCc(parsedEmail.cc),
+      bcc: this.getBcc(parsedEmail.bcc),
       content: {
         text: parsedEmail.text,
         html: parsedEmail.textAsHtml,
@@ -23,7 +23,7 @@ export default class EmlParser implements IMessageParser {
     } as Message;
   }
 
-  private getFrom(from?: AddressObject | undefined): EmailAddress {
+  private getFrom(from?: AddressObject | undefined): EmailAddressType {
     if (from === undefined || from === null) {
       return undefined;
     }
@@ -38,12 +38,12 @@ export default class EmlParser implements IMessageParser {
     return output;
   }
 
-  private getTo(to?: AddressObject | AddressObject[] | undefined): EmailAddress[] {
+  private getTo(to?: AddressObject | AddressObject[] | undefined): EmailAddressType[] {
     if (to === undefined || to === null) {
       return [];
     }
 
-    const output: EmailAddress[] = []
+    const output: EmailAddressType[] = []
 
     if (Array.isArray(to)) {
       to.forEach(recipient => {
@@ -60,12 +60,12 @@ export default class EmlParser implements IMessageParser {
     return output
   }
 
-  private getCc(cc?: AddressObject | AddressObject[] | undefined): EmailAddress[] {
+  private getCc(cc?: AddressObject | AddressObject[] | undefined): EmailAddressType[] {
     if (cc === undefined || cc === null) {
       return [];
     }
 
-    const output: EmailAddress[] = []
+    const output: EmailAddressType[] = []
 
     if (Array.isArray(cc)) {
       cc.forEach(recipient => {
@@ -82,12 +82,12 @@ export default class EmlParser implements IMessageParser {
     return output
   }
 
-  private getBcc(bcc?: AddressObject | AddressObject[] | undefined): EmailAddress[] {
+  private getBcc(bcc?: AddressObject | AddressObject[] | undefined): EmailAddressType[] {
     if (bcc === undefined || bcc === null) {
       return [];
     }
 
-    const output: EmailAddress[] = []
+    const output: EmailAddressType[] = []
 
     if (Array.isArray(bcc)) {
       bcc.forEach(recipient => {

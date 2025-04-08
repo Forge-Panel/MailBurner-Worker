@@ -1,5 +1,5 @@
 import {ParsedMail} from "mailparser";
-import type EmailAddress from "./EmailAddress.js";
+import EmailAddress from "./emailAddress.type.js";
 
 type Message = {
   messageId: string;

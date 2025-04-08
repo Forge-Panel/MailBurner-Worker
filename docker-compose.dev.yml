@@ -1,11 +1,11 @@
 services:
   ollama:
-      image: ollama/ollama
-      container_name: MailBurner_Ollama
-      ports:
-        - "11434:11434"
-      volumes:
-        - ollama-data:/root/.ollama
+    image: ollama/ollama
+    container_name: MailBurner_Ollama
+    ports:
+      - 11434:11434
+    volumes:
+      - ollama-data:/root/.ollama
 
   redis:
     image: redis/redis-stack
