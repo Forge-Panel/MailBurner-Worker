@@ -1,6 +1,5 @@
 import MailDriver from "../interfaces/mail-driver.interface.js";
 
-
 export default class MailService {
   static mailDrivers: Record<string, MailDriver> = {};
   private currentMailDriver?: MailDriver;

@@ -2,7 +2,6 @@ import MessageParser from "../interfaces/message-parser.interface.js";
 import EmlMessageParser from "../parsers/eml.parser.js";
 import type Message from "../types/message.type.js";
 
-
 export default class MessageParserService {
   static async parseMessage(rawMessage: string): Promise<Message> {
     // Detect file type using message content
