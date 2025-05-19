@@ -22,3 +22,26 @@ mailboxes:
           - name: Trash
             folder_path: '[Gmail]/Spam' # Example: All standard folder in Gmail are labeled with [Gmail]
             description: "All spam and phising emails should be moved be here."
+
+mail:
+  # Available drivers: filesystem, imap
+  driver: filesystem
+  path: ../test # Required for filesystem driver - path relative to Worker directory
+
+  # IMAP Configuration (required if driver is 'imap')
+  # host: imap.example.com
+  # port: 993
+  # user: your-email@example.com
+  # password: your-password
+  # tls: true  # Optional, defaults to true
+
+# AI Configuration
+ai:
+  driver: ollama
+  model: llama2
+  host: http://localhost:11434
+  system_prompt: |
+    You are an AI assistant that helps categorize emails.
+    Your task is to analyze the content of emails and determine their category.
+    Categories can be: Personal, Work, Shopping, Social, Spam, Newsletter, etc.
+    Please provide a brief explanation for your categorization.

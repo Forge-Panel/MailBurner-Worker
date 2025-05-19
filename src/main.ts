@@ -1,46 +1,17 @@
-import { Queue, Worker } from 'bullmq';
+import MailService from "./services/mail.service.js";
+import FilesystemMailDriver from "./drivers/mail/filesystem.driver.js";
+import ImapDriver from "./drivers/mail/imap.driver.js";
+import AiService from "./services/ai.service.js";
+import LangChainDriver from "./drivers/ai/langchain.driver.js";
+import runJob from "./workers/move-mail.js";
+import config from "./config.js"
 
-// const myQueue = new Queue(
-//   'foo',
-//   {
-//     connection: {
-//       host: "127.0.0.1",
-//       port: 6379,
-//     }
-//   }
-// );
-//
-// async function addJobs() {
-//   await myQueue.add('myJobName', { foo: 'bar' });
-//   await myQueue.add('myJobName', { qux: 'baz' });
-// }
-//
-// await addJobs();
-//
-const worker = new Worker(
-  'foo',
-  async job => {
-    // Will print { foo: 'bar'} for the first job
-    // and { qux: 'baz' } for the second.
-    console.log("i will run a job");
 
-    console.log("")
+// Register available driver classes
+MailService.registerMailDriver('filesystem', FilesystemMailDriver);
+MailService.registerMailDriver('imap', ImapDriver);
 
-    console.log(job.data);
-  },
-  {
-    connection: {
-      host: "127.0.0.1",
-      port: 6379,
-    }
-  },
-);
+AiService.injectAiDriver(new LangChainDriver(config.ai))
 
-// import fs from 'node:fs/promises';
-//
-// try {
-//   const data = await fs.readFile('./config.json', { encoding: 'utf8' });
-//   console.log(data);
-// } catch (err) {
-//   console.error(err);
-// }
+// Run the job with the mail configuration
+runJob();
