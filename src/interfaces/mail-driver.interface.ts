@@ -1,5 +1,3 @@
-import Message from "../types/message.type.js";
-
 export default interface MailDriver {
   readFolder(folderName: string): AsyncGenerator<string, void, unknown>;
   getMessageById(messageId: string, folderName: string): Promise<string | null>; // Returns raw message string or null

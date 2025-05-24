@@ -1,5 +1,4 @@
 import Imap, { Box, ImapMessage } from 'node-imap';
-import { simpleParser } from 'mailparser';
 import { promisify } from 'util';
 import MailDriver from '../../interfaces/mail-driver.interface.js';
 import { logger } from '../../utils/logger.js';
